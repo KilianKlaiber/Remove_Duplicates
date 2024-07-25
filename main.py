@@ -38,10 +38,24 @@ def main():
         45,
         45,
     ]
+    
+    
+    
+    array1 = list(range(5000))
+    array2 = list(range(4000))
+    
+    zipped = zip(array1, array2)
+    
+    duplist = []
+    for items in zipped:
+        duplist.append(items[0])
+        duplist.append(items[1])
 
-    result = remove_Duplicates(num_array)
+    
+    new_list = remove_Duplicates(duplist)
+    
+    print(new_list)
 
-    print(result)
 
 
 def remove_Duplicates(array: list):
