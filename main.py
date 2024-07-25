@@ -38,8 +38,8 @@ def main():
     ]
     
       
-    array1 = list(range(5000))
-    array2 = list(range(4000))
+    array1 = list(range(20000))
+    array2 = list(range(20000))
     
     zipped = zip(array1, array2)
     
