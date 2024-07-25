@@ -39,9 +39,10 @@ def main():
         45,
     ]
     
-      
-    array1 = list(range(20000))
-    array2 = list(range(20000))
+    
+    
+    array1 = list(range(5000))
+    array2 = list(range(4000))
     
     zipped = zip(array1, array2)
     
@@ -49,14 +50,15 @@ def main():
     for items in zipped:
         duplist.append(items[0])
         duplist.append(items[1])
+
     
-    result = remove_Duplicates(duplist)
+    new_list = multiremove_Duplicates(duplist)
     
     print(new_list)
 
 
 
-def remove_Duplicates(array: list):
+def multiremove_Duplicates(array: list):
 
     if get_second_element(array) == None:
         return array
@@ -77,8 +79,8 @@ def remove_Duplicates(array: list):
     with ProcessPoolExecutor(max_workers=2) as executor:
         # submit tasks to be executed
         futures = [
-            executor.submit(remove_Duplicates, left_array),
-            executor.submit(remove_Duplicates, right_array),
+            executor.submit(multiremove_Duplicates, left_array),
+            executor.submit(multiremove_Duplicates, right_array),
         ]
         # Collect the results from these tasks
         results = [future.result() for future in futures]
