@@ -36,12 +36,15 @@ def main():
         45,
         45,
     ]
-
+    
+    result = remove_Duplicates(num_array)
+    
+    print(result)
 
 
 def remove_Duplicates(array: list):
 
-    if len(array) == 0 or len(array) == 1:
+    if get_second_element(array) == None:
         return array
 
     else:
@@ -53,31 +56,34 @@ def remove_Duplicates(array: list):
         right_array = array[middle:]
 
         # Delete duplicates at middle:
-        while left_array[-1] == right_array[0]:
-            if len(right_array) >= 2:
-                right_array = right_array[1:]
-            elif len(left_array) >= 2:
-                left_array = left_array[:-1]
-            else:
-                right_array = []
-                break
-        print("left array: ", left_array)
-        print("right array: ", right_array)
+        while get_last_element(left_array) == get_first_element( right_array):
+            right_array = right_array[1:]
+           
 
-        # Recursively apply the function to the left and right list. Concatenate the
-        # results and return it as result.
-
-        if number_of_instances <= 8:
-            right = Process(
-                target=remove_Duplicates, args=right_array
-            )  # Create a Process object
-            right.start()  # Start the process
-            left = remove_Duplicates(left_array)
-            right.join()  # Wait for the process to finish
-            result = left
-
-        number_of_instances -= 1
         return remove_Duplicates(left_array) + remove_Duplicates(right_array)
+
+
+def get_first_element(array):
+    
+    try:
+        first_element = array[0]
+        return first_element
+    except:
+        return None
+
+def get_second_element(array):
+    try:
+        seond_element = array[1]
+        return seond_element
+    except:
+        return None
+
+def get_last_element(array):
+    try:
+        last_element = array[-1]
+        return last_element
+    except:
+        return None
 
 
 if __name__ == "__main__":
