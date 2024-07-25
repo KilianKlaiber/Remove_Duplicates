@@ -4,10 +4,8 @@ The relative order of the elements should be kept the same. Then return the numb
 
 """
 
-import multiprocessing
-
 from concurrent.futures import ProcessPoolExecutor
-import itertools
+
 
 def main():
 
@@ -40,9 +38,9 @@ def main():
         45,
         45,
     ]
-    
+
     result = remove_Duplicates(num_array)
-    
+
     print(result)
 
 
@@ -60,31 +58,30 @@ def remove_Duplicates(array: list):
         right_array = array[middle:]
 
         # Delete duplicates at middle:
-        while get_last_element(left_array) == get_first_element( right_array):
+        while get_last_element(left_array) == get_first_element(right_array):
             right_array = right_array[1:]
-        
-        
+
     # Use ProcessPoolExecutor to process each half in parallel
     with ProcessPoolExecutor(max_workers=2) as executor:
         # submit tasks to be executed
         futures = [
             executor.submit(remove_Duplicates, left_array),
-            executor.submit(remove_Duplicates, right_array)
+            executor.submit(remove_Duplicates, right_array),
         ]
         # Collect the results from these tasks
         results = [future.result() for future in futures]
-    
+
     return results[0] + results[1]
 
 
-
 def get_first_element(array):
-    
+
     try:
         first_element = array[0]
         return first_element
     except:
         return None
+
 
 def get_second_element(array):
     try:
@@ -92,6 +89,7 @@ def get_second_element(array):
         return seond_element
     except:
         return None
+
 
 def get_last_element(array):
     try:
