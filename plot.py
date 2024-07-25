@@ -1,4 +1,4 @@
-# Measure timing and  plot result
+# Measure timing and  plot result for deleting duplicates
 
 import matplotlib.pyplot as plt
 import timeit
@@ -13,34 +13,44 @@ def measure_time(source, algorithm, data):
     return execution_time
 
 
-kilian_merge_times = []
-merge_times = []
-input_sizes = [10, 100, 1000,10000]
+multi_times = []
+simple_times = []
+input_sizes = [10, 100, 1000, 10000]
+
 
 for size in input_sizes:
-    input_array = list(range(size))
-    shuffle(input_array)
     
-    # calculate merge times for kilian2_merge algorithm
-    kilian_time = measure_time(
-        source="kilian2_merge", 
-        algorithm="kilian2_merge", 
-        data=input_array
-    )
-    kilian_merge_times.append(kilian_time)
+    array1 = list(range(size))
+    array2 = list(range(size))
+
+    zipped = zip(array1, array2)
+
+    duplist = []
+    for items in zipped:
+        duplist.append(items[0])
+        duplist.append(items[1])
+
     
-    # Calculate merge times for merge_sort algorithm
-    merge_time = measure_time(
-        source="merge_sort", 
-        algorithm="merge_sort", 
-        data=input_array
+    # calculate remove times for multiprocessing algorithm
+    time = measure_time(
+        source="multiprocess", 
+        algorithm="multiremove_Duplicates", 
+        data=duplist
     )
-    merge_times.append(merge_time)
+    multi_times.append(time)
+    
+    # Calculate remove times for simple algorithm
+    time = measure_time(
+        source="main", 
+        algorithm="remove_Duplicates", 
+        data=duplist
+    )
+    simple_times.append(time)
     
 # Plot the first curve for kilian2 algo
-plt.plot(input_sizes, kilian_merge_times, label="kilian2")
+plt.plot(input_sizes, multi_times, label="multi")
 # Plot the second curve for merge_sort algo
-plt.plot(input_sizes, merge_times, label="merge sort")
+plt.plot(input_sizes, simple_times, label="simple")
 
 
 plt.xlabel("Input Size")

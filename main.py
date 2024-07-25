@@ -50,9 +50,6 @@ def main():
         duplist.append(items[0])
         duplist.append(items[1])
     
-    result = remove_Duplicates(duplist)
-    
-    print(new_list)
 
 
 
