@@ -37,7 +37,7 @@ def main():
         45,
     ]
     
-    result = remove_Duplicates(num_array)
+    result = remove_Duplicates([1,2])
     
     print(result)
 
